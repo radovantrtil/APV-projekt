@@ -1,0 +1,38 @@
+{extends layout.latte}
+{block title}
+    New contact
+{/block}
+
+{block body}
+        <h1 class="display-4">New contact</h1>
+        <form method="post">            
+            <!-- new contact -->
+            <div class="form-row">
+                <!-- Contact type -->
+                <div class="col-sm-4 form-group">
+                    <label for="contact_type">Contact type</label>
+                        <select class="form-control" type="text" name="id_contact_type" required>
+                            <option value="1" {if $formData['id_contact_type'] == 1}selected{/if}>Facebook</option>
+                            <option value="2" {if $formData['id_contact_type'] == 2}selected{/if}>Skype</option>
+                            <option value="3" {if $formData['id_contact_type'] == 3}selected{/if}>Phone number</option>
+                            <option value="4" {if $formData['id_contact_type'] == 4}selected{/if}>Email</option>
+                            <option value="5" {if $formData['id_contact_type'] == 5}selected{/if}>Jabber</option>
+                            <option value="6" {if $formData['id_contact_type'] == 6}selected{/if}>Web</option>                         
+                        </select>
+                </div>
+                    <!-- Contact-->
+                 <div class="col-sm-5 form-group">
+                    <label for="contact">Contact</label>
+                    <input class="form-control" type="text" name="contact" placeholder="Contact" value="{$formData['contact']}" required>
+                </div>
+            </div>      
+            <br>
+            <div>
+                <button type="submit" class="btn btn-success">
+                    <span class="fa fa-plus"></span> Add contact
+                </button>
+            </div>
+        </form>
+    </div>   
+
+{/block}

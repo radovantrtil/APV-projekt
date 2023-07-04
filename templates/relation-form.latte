@@ -1,0 +1,50 @@
+{if isset($message)}           
+            <div class="alert alert-info" role="alert">{$message}</div>
+        {/if}
+        <form method="post">            
+            <!-- new relation -->
+            <div class="form-row">
+                <!-- Relation type -->
+                <div class="col-sm-4 form-group">
+                    <label for="id_person1">First person</label>
+                        <select name="id_person1" class="custom-select form-control" required>
+                            {foreach $persons1 as $p}
+                               <option {if $formData['id_person1'] == $p['id_person']}selected{/if} value="{$p['id_person']}">{$p['first_name'].' '.$p['last_name']}</option>
+                            {/foreach}
+                        </select>
+
+                </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="id_person2">Second person</label>
+                        <select name="id_person2" class="custom-select form-control" required>
+                            {foreach $persons2 as $p}
+                               <option {if $formData['id_person2'] == $p['id_person']}selected{/if} value="{$p['id_person']}">{$p['first_name'].' '.$p['last_name']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>    
+            <div class="form-row">
+                <!-- Relation type -->
+                <div class="col-sm-2 form-group">
+                    <label for="id_relation_type">Relation type</label>
+                        <select class="form-control" type="text" name="id_relation_type" required>
+                            {foreach $relations as $r_type}
+                                <option {if $formData['id_relation_type'] == $r_type['id_relation_type']}selected{/if} value="{$r_type['id_relation_type']}">{$r_type['name']}</option>
+                            {/foreach}                        
+                        </select>
+
+                </div>
+                    <!-- Contact-->
+                 <div class="col-sm-6 form-group">
+                    <label for="description">Description</label>
+                    <input class="form-control" type="text" name="description" placeholder="Describe your relation" value="{$formData['description']}" required>
+                </div>
+            </div>  
+            <br>
+            <div>
+                <button type="submit" class="btn btn-success">
+                    <span class="fa fa-plus"></span> {$buttonTitle}
+                </button>
+            </div>
+        </form>
+    </div>   

@@ -1,0 +1,11 @@
+/*
+  place custom CSS definitions into this file to override Bootstrap
+*/
+#paging td{
+	margin: 10px;
+	display: inline-block;
+}
+
+#center {
+  text-align: center;
+}

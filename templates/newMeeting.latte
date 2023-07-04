@@ -1,0 +1,8 @@
+{extends layout.latte}
+
+{block title}New meeting{/block}
+
+{block body}
+		<h1 class="display-4">New meeting</h1>
+		{include meeting-form.latte, buttonTitle=>'Add meeting'}
+{/block}

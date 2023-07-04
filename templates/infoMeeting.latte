@@ -1,0 +1,100 @@
+{extends layout.latte}
+
+{block title}Meeting info{/block}
+
+{block body}
+        <h1 class="display-4" align="center">Meeting details</h1> <br>
+        <div class="row">
+            <div class="col-4">               
+                <h2>Information</h2>
+                <table class="table table-stripped table-hover">
+                    <tr>
+                        <th>Start:</th>
+                        <td>{$meeting['start']}</td>
+                    </tr>
+                    <tr>
+                        <th>Duration:</th>
+                        <td>{$meeting['duration']}</td>
+                    </tr>
+                    <tr>
+                        <th>Description:</th>
+                        <td>{$meeting['description']}</td>
+                    </tr>                   
+                </table>                
+            </div>
+        
+            {if !empty($meeting['country']) || !empty($meeting['city']) || !empty($meeting['street_name']) || !empty($meeting['street_number']) || !empty($meeting['zip'])}
+                <div class="col-4">  
+                    <h2>Address</h2>
+                    <table class="table table-stripped table-hover">
+
+                        {if isset($meeting['street_name'])}
+                            <tr>
+                                <th>Street name:</th>
+                                <td>{$meeting['street_name']}</td>
+                            </tr>
+                        {/if}
+
+                        {if isset($meeting['street_number'])}
+                            <tr>
+                                <th>Street number:</th>
+                                <td>{$meeting['street_number']}</td>
+                            </tr>
+                        {/if}
+                        
+                        {if isset($meeting['city'])}
+                            <tr>
+                                <th>City:</th>
+                                <td>{$meeting['city']}</td>
+                            </tr>
+                        {/if}
+
+                        {if isset($meeting['zip'])}
+                            <tr>
+                                <th>ZIP:</th>
+                                <td>{$meeting['zip']}</td>
+                            </tr>
+                        {/if}
+                    </table>
+                </div>
+            {/if} 
+
+            <div class="col-4">
+                {if !empty($participant)}                
+                    <h2>Participants</h2>
+                    <table class="table table-stripped table-hover">
+                    {foreach $participant as $p}
+                        <tr>
+                            <th><a href="{link person_info}?id_person={$p['id_person']}">{$p['first_name'].' '.$p['last_name']}</a></th>
+                            <td>
+                                <form onClick="return confirm('Are you sure you want to delete person {$p['first_name']} {$p['last_name']} from meeting?')" action="{link participant_delete}" method="post">
+                                    <input type="hidden" name="id_meeting" value="{$p['id_meeting']}">
+                                    <input type="hidden" name="id_person" value="{$p['id_person']}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <span class="fas fa-trash-alt"></span> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
+                    </table>                
+                {/if}
+                <form method="post" action="{link participant_add}?id_meeting={$meeting['id_meeting']}" class="form">
+                    <div class="form-row">
+                        <div class="col-sm-8 form-group">
+                            <select class="form-control" name="id_person" id="id_person">
+                                {foreach $person as $p}
+                                    <option value="{$p['id_person']}">{$p['first_name'].' '.$p['last_name']}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-sm-2 form-group">
+                         <button class="btn btn-success" type="submit">
+                            <span class="fa fa-plus"></span> Add participant
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{/block}

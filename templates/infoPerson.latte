@@ -1,0 +1,172 @@
+{extends layout.latte}
+
+{block title}Person info{/block}
+
+{block body}
+        <h1 class="display-4" align="center">{$person['first_name'].' '.$person['last_name']}</h1> <br>
+        <div class="row">
+            <div class="col-4">
+                <section>
+                    <h2>Personal info</h2>
+                    <table class="table table-stripped table-hover">
+                        <tr>
+                            <th>Nickname:</th>
+                            <td>{$person['nickname']}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td>{$person['gender']}</td>
+                        </tr>
+                         {if isset($person['height'])}
+                         <tr>
+                            <th>Height:</th>
+                            <td>{$person['height']} cm</td>
+                        </tr>
+                        {/if}
+                         {if isset($person['birth_day'])}
+                        <tr>
+                            <th>Date of birth:</th>
+                            <td>{$person['birth_day']}</td>
+                        </tr>   
+                        {/if}                     
+                    </table>
+                </section>
+            </div>
+                	
+        	{if !empty($location)}
+        	<div class="col-4"> 
+                <h2>Address</h2> 
+                <table class="table table-stripped table-hover">
+                	{if isset($location['name'])}
+                	<tr>
+                        <th>Name:</th>
+                        <td>{$location['name']}</td>
+                    </tr>
+                    {/if}
+
+                    {if isset($location['street_name'])}
+                    <tr>
+                        <th>Street name:</th>
+                        <td>{$location['street_name']}</td>
+                    </tr>
+                    {/if}
+
+                    {if isset($location['street_number'])}
+                    <tr>
+                        <th>Street number:</th>
+                        <td>{$location['street_number']}</td>
+                    </tr>
+                    {/if}
+                        
+                    {if isset($location['city'])}
+                    <tr>
+                    	<th>City:</th>
+                    	<td>{$location['city']}</td>
+                    </tr>
+                    {/if}
+
+                    {if isset($location['country'])}
+                    <tr>
+                        <th>Country:</th>
+                        <td>{$location['country']}</td>
+                    </tr>
+                    {/if}
+                    
+                    {if isset($location['zip'])}
+                    <tr>
+                        <th>ZIP:</th>
+                        <td>{$location['zip']}</td>
+                    </tr>
+                    {/if}
+                </table>   
+                </div>            
+            {/if}
+            
+            <div class="col-4">
+                <div class="row">  
+                    <div class="col"> 
+                        <h2>Relations </h2> 
+                    </div>  
+                    <div class="col"> 
+                        <a href="{link newRelation}" class="btn btn-success">
+                            <span class="fa fa-plus"></span> Add relation
+                        </a>   
+                    </div>
+                </div>
+                {if !empty($relations)}               
+                  
+                    <table class="table table-stripped table-hover">
+                    {foreach $relations as $r}
+                        <tr>
+                            <th>{$r['name']. ' with '}<a href="{link person_info}?id_person={$r['id_person2']}">
+                                {$r['first_name']} {$r['last_name']}</a>
+                            </th>                            
+                        </tr>
+                    {/foreach}
+                    </table>                
+                {/if}                
+            </div>
+            
+        </div>
+
+    <div class="row" >        
+            <div class="col-6">                
+                <div class="row">  
+                    <div class="col"> 
+                        <h2>Contacts </h2> 
+                    </div>  
+                    <div class="col"> 
+                        <a href="{link person_contact}?id_person={$person['id_person']}" class="btn btn-success">
+                            <span class="fa fa-plus"></span> Add contact
+                        </a>   
+                    </div>
+                </div>
+                {if !empty($contact)}          
+                    <table class="table table-stripped table-hover">
+                    {foreach $contact as $c}
+                        <tr>
+                            <th>{$c['name']}:</th>
+                            <td>{$c['contact']}</td>
+                            <td>
+                                <form onClick="return confirm('Are you sure you want to delete {$c['name']} contact {$c['contact']}?')" action="{link contact_delete}" method="post">
+                                    <input type="hidden" name="id_contact" value="{$c['id_contact']}">
+                                    <input type="hidden" name="id_person" value="{$c['id_person']}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <span class="fas fa-trash-alt"></span> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
+                    </table>                
+                {/if}                
+            </div>
+			{if !empty($meeting)}
+           		<div class="col-6">
+           			<h2>Meetings</h2>
+                	<table class="table table-stripped table-hover">
+                    {foreach $meeting as $m}
+                        <tr>
+                            <th>Meeting:</th>
+                            <td><a class="btn btn-outline-info" href="{link meeting_info}?id_meeting={$m['id_meeting']}"><span class="far fa-eye"> Show meeting</span></a></td>
+                        </tr>                        
+                        <tr>
+                            <th>Start:</th>
+                            <td>{$m['start']}</td>
+                        </tr>
+                        <tr>
+                            <th>Duration:</th>
+                            <td>{$m['duration']}</td>
+                        </tr>                        
+                        {if !empty($m['description'])}
+                            <tr>
+                                <th>Description:</th>
+                                <td>{$m['description']}</td>
+                            </tr>
+                        {/if}                        
+                    {/foreach}
+                    </table>
+                </div>
+            {/if}
+        </div>
+{/block}

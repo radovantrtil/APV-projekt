@@ -1,0 +1,48 @@
+{if isset($message)}           
+            <div class="alert alert-info" role="alert">{$message}</div>
+        {/if}
+        <form method="post">      
+            <!-- about meeting -->
+            <div class="form-row">
+                    <div class="col-sm-3 form-group">
+                        <label for="start">Start</label>
+                        <input class="form-control" type="datetime-local" id="start" name="start" placeholder="DD/MM/YYYY hh:mm" required value="{$formData['start']}">
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label for="duration">Duration</label>
+                        <input class="form-control" type="time" id="duration" name="duration" required placeholder="hh:mm" value="{$formData['duration']}">
+                    </div>
+
+                    <div class="col-sm-4 form-group">
+                        <label for="description">Description</label>
+                        <input class="form-control" type="text" id="description" name="description" placeholder="Describe meeting" value="{$formData['description']}">
+                    </div>
+            </div>
+            <!-- Adress -->
+            <div class="form-row">
+               
+                <div class="col-sm-3 form-group">
+                    <label for="street_name">Street name</label>
+                    <input class="form-control" type="text" id="street_name" name="street_name" placeholder="Street name" value="{$formData['street_name']}">
+                </div>
+
+                <div class="col-sm-2 form-group">
+                    <label for="street_number">Street number</label>
+                    <input class="form-control" type="number" id="street_number" name="street_number" placeholder="Street number" value="{$formData['street_number']}">
+                </div>
+                 <div class="col-sm-3 form-group">
+                    <label for="city">City</label>
+                    <input class="form-control" type="text" id="city" name="city" placeholder="City" value="{$formData['city']}">
+                </div>
+
+                <div class="col-sm-1 form-group">
+                    <label for="zip">ZIP</label>
+                    <input class="form-control" type="text" id="zip" name="zip" placeholder="ZIP" value="{$formData['zip']}">
+                </div>
+            </div>
+                <button type="submit" class="btn btn-success">
+                    <span class="fa fa-plus"></span> {$buttonTitle}
+                </button>
+            </div>
+        </form>
+    </div>   

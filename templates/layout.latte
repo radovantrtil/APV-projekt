@@ -1,0 +1,24 @@
+{import 'menu.latte'}
+{import 'footer.latte'}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <title>{include title}</title>
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/custom.css">
+    <link rel="icon" href="{$basePath}/img/favicon1.png" type="png">
+    <script type="text/javascript" src="{$basePath}/js/jquery.js"></script>
+    <script type="text/javascript" src="{$basePath}/css/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {ifset meta}{include meta}{/ifset}
+</head>
+<body>
+{include menu}
+	<div class ="container">
+        {include body}      
+	</div>
+{include footer}
+</body> 
+</html>
